@@ -12,6 +12,7 @@ runtagslam() {
 	sleep 1s
 	rviz -d `rospack find tagslam`/example/tagslam_example.rviz &
 	roslaunch tagslam tagslam.launch bag:=`rospack find tagslam`/example/example.bag
+	rosservice call /tagslam/replay
 	wait
     )
 }
