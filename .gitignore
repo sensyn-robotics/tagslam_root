@@ -3,7 +3,6 @@ devel/
 logs/
 .catkin_tools/
 data/
-src/
 
 *~
 *#
