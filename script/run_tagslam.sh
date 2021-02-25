@@ -3,25 +3,26 @@
 #######
 
 # prepare envs
-ROOTDIR=$(dirname "$0")/..
+ROOTDIR=$(dirname $(readlink -f "$0"))/.. # we need absolute path for sync_and_detect_mine.launch
 source ${ROOTDIR}/devel/setup.bash
 
 ###############
 ## parameters
-# example params(if you want to use your own, comment out this block, and uncomment next one)
-#BAGFILE=`rospack find tagslam`/example/example.bag
-#TOPICS=/pg_17274483/image_raw/compressed
-#IMAGES_ARE_COMPRESSED=true
+# # example params(if you want to use your own, comment out this block, and uncomment next one)
+# BAGFILE=`rospack find tagslam`/example/example.bag
+# TOPICS=/pg_17274483/image_raw/compressed
+# IMAGES_ARE_COMPRESSED=true
+# SEPARATESTEP=true
 
-# multicam calib example
-BAGFILE=${ROOTDIR}/src/tagslam_test/tests/test_6/reference.bag
-TOPICS=""
+# # multicam calib example. (but this example send already extracted odometry)
+# BAGFILE=${ROOTDIR}/src/tagslam_test/tests/test_6/reference.bag
+# TOPICS=""
 
-# # your params(you can edit)
-# #SEPARATESTEP=true
-# BAGFILE=${ROOTDIR}/data/images.bag
-# TOPICS=/cam0/image_raw
-# IMAGES_ARE_COMPRESSED=false
+# your params(you can edit)
+#SEPARATESTEP=true
+BAGFILE=${ROOTDIR}/data/images.bag
+TOPICS="" # to play all topics
+IMAGES_ARE_COMPRESSED=false
 ################
 
 
