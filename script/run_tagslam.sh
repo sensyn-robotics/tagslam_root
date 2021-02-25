@@ -9,10 +9,13 @@ source ${ROOTDIR}/devel/setup.bash
 ###############
 ## parameters
 # example params(if you want to use your own, comment out this block, and uncomment next one)
-BAGFILE=`rospack find tagslam`/example/example.bag
-#BAGFILE=src/tagslam_test/tests/test_6/reference.bag
-TOPICS=/pg_17274483/image_raw/compressed
-IMAGES_ARE_COMPRESSED=true
+#BAGFILE=`rospack find tagslam`/example/example.bag
+#TOPICS=/pg_17274483/image_raw/compressed
+#IMAGES_ARE_COMPRESSED=true
+
+# multicam calib example
+BAGFILE=${ROOTDIR}/src/tagslam_test/tests/test_6/reference.bag
+TOPICS=""
 
 # # your params(you can edit)
 # #SEPARATESTEP=true
