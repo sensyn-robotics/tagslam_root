@@ -8,22 +8,26 @@ source ${ROOTDIR}/devel/setup.bash
 
 ###############
 ## parameters
-# # example params(if you want to use your own, comment out this block, and uncomment next one)
-# TAGSLAMLAUNCH="tagslam tagslam.launch"
-# BAGFILE=`rospack find tagslam`/example/example.bag
-# TOPICS=/pg_17274483/image_raw/compressed
-# # SEPARATESTEP=true
+
+# example params(if you want to use your own, comment out this block, and uncomment next one)
+RVIZFILE=`rospack find tagslam`/example/tagslam_example.rviz
+TAGSLAMLAUNCH="tagslam tagslam.launch"
+BAGFILE=`rospack find tagslam`/example/example.bag
+TOPICS=/pg_17274483/image_raw/compressed
+# SEPARATESTEP=true
 
 # # multicam calib example. (but this example send already extracted odometry)
+# RVIZFILE=`rospack find tagslam`/example/tagslam_example.rviz
 # TAGSLAMLAUNCH="tagslam tagslam.launch"
 # BAGFILE=${ROOTDIR}/src/tagslam_test/tests/test_6/reference.bag
 # TOPICS=""
 
-# your params(you can edit)
-TAGSLAMLAUNCH=${ROOTDIR}/script/tagslam_mine.launch
-BAGFILE=${ROOTDIR}/data/images.bag
-TOPICS="" # empty to play all topics
-# SEPARATESTEP=true
+# # your params(you can edit)
+# RVIZFILE=${ROOTDIR}/script/tagslam.rviz
+# TAGSLAMLAUNCH=${ROOTDIR}/script/tagslam_mine.launch
+# BAGFILE=${ROOTDIR}/data/images.bag
+# TOPICS="" # empty to play all topics
+# # SEPARATESTEP=true
 ################
 
 
@@ -32,7 +36,7 @@ TOPICS="" # empty to play all topics
     roscore & 
     sleep 3s
     rosparam set use_sim_time true
-    rviz -d `rospack find tagslam`/example/tagslam_example.rviz &
+    rviz -d $RVIZFILE &
 
     if [ -z $SEPARATESTEP ] ; then # originally called as online 
     	roslaunch ${TAGSLAMLAUNCH} run_online:=true &
