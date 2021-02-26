@@ -9,20 +9,21 @@ source ${ROOTDIR}/devel/setup.bash
 ###############
 ## parameters
 # # example params(if you want to use your own, comment out this block, and uncomment next one)
+# TAGSLAMLAUNCH="tagslam tagslam.launch"
 # BAGFILE=`rospack find tagslam`/example/example.bag
 # TOPICS=/pg_17274483/image_raw/compressed
-# IMAGES_ARE_COMPRESSED=true
-# SEPARATESTEP=true
+# # SEPARATESTEP=true
 
 # # multicam calib example. (but this example send already extracted odometry)
+# TAGSLAMLAUNCH="tagslam tagslam.launch"
 # BAGFILE=${ROOTDIR}/src/tagslam_test/tests/test_6/reference.bag
 # TOPICS=""
 
 # your params(you can edit)
-#SEPARATESTEP=true
+TAGSLAMLAUNCH=${ROOTDIR}/script/tagslam_mine.launch
 BAGFILE=${ROOTDIR}/data/images.bag
-TOPICS="" # to play all topics
-IMAGES_ARE_COMPRESSED=false
+TOPICS="" # empty to play all topics
+# SEPARATESTEP=true
 ################
 
 
@@ -34,7 +35,7 @@ IMAGES_ARE_COMPRESSED=false
     rviz -d `rospack find tagslam`/example/tagslam_example.rviz &
 
     if [ -z $SEPARATESTEP ] ; then # originally called as online 
-    	roslaunch ${ROOTDIR}/script/tagslam_mine.launch run_online:=true has_compressed_images:=$IMAGES_ARE_COMPRESSED &
+    	roslaunch ${TAGSLAMLAUNCH} run_online:=true &
     	roslaunch tagslam apriltag_detector_node.launch &
     	rosbag play --clock $BAGFILE --topics $TOPICS
     else
