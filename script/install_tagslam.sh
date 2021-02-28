@@ -20,4 +20,4 @@ catkin config -DCMAKE_BUILD_TYPE=Release
 catkin build
 
 # extract sample data
-bunzip2 src/tagslam_test/tests/test_6/reference.bag.bz2
+bunzip2 src/tagslam_test/tests/*/*.bz2
