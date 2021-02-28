@@ -24,8 +24,10 @@ $ script/run_tagslam_online.sh
   -- remove tabs from cameras.yaml
   -- add these 2 lines to each cam*:
   tagtopic: /detector/tags
-  rig_body: rig    	 
-
+  rig_body: rig
+- make camerainfo.yaml
+  -- $ rosrun tagslam kalibr_to_camerainfo.py -i data/cameras.yaml -o data/cam0_camerainfo.yaml -c cam0
+  -- $ rosrun tagslam add_camera_info.py --out_bag data/images_withinfo.bag --caminfo_file data/cam0_camerainfo.yaml --caminfo_topic /cam0/camera_info --image_topic /cam0/image_raw data/images.bag
 
 ## reference
 original [TagSLAM project](https://berndpfrommer.github.io/tagslam_web).

@@ -6,11 +6,11 @@
   <arg name="calibration_file" default="$(arg config_dir)/cameras.yaml"/>
   <arg name="camera_poses_file"
        default="$(arg config_dir)/camera_poses.yaml"/>
-  <arg name="run_online" default="true"/>
+  <arg name="run_online" default="false"/>
   <arg name="bag" default="$(arg data_dir)/images.bag"/>
-  <arg name="max_number_of_frames" default="1000000"/>
+  <arg name="max_number_of_frames" default="100000"/>
   <arg name="start_time" default="0.0"/>
-  <arg name="has_compressed_images" default="true"/>
+  <arg name="has_compressed_images" default="false"/>
 
   <node pkg="tagslam" type="tagslam_node" name="tagslam" clear_params="true"
 	output="screen">

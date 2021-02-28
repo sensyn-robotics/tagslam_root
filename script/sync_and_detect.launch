@@ -1,7 +1,6 @@
 <launch>
   <arg name="output" default="screen"/>
   <arg name="bag" default=""/>
-  <arg name="topics" default=""/>
   <arg name="detector_type" default="Mit"/>
   <arg name="start_time" default="0.0"/>
   <arg name="duration" default="-1.0"/>
@@ -16,20 +15,36 @@
   <arg name="tag_family" default="0"/>
   <node pkg="tagslam" type="sync_and_detect_node" name="sync_and_detect"
     output="$(arg output)" clear_params="True">
-    <rosparam param="image_topics" subst_value="True">
-      ["$(arg topics)"]
+    <rosparam param="image_topics">
+      ["/cam0/image_raw",
+      "/cam1/image_raw",
+      "/cam2/image_raw",
+      "/cam3/image_raw",
+      "/cam4/image_raw",
+      "/cam5/image_raw"     
+      ]
     </rosparam>
     <rosparam param="image_output_topics">
-      ["/annotated_images/compressed"]
+      ["/cam0/annotated/compressed",
+      "/cam1/annotated/compressed",
+      "/cam2/annotated/compressed",
+      "/cam3/annotated/compressed",
+      "/cam4/annotated/compressed",
+      "/cam5/annotated/compressed"]
     </rosparam>
-    <rosparam param="tag_topics"> ["/detector/tags"]</rosparam>
+    <rosparam param="tag_topics"> ["/cam0/tags",
+    "/cam1/tags",
+    "/cam2/tags",
+    "/cam3/tags",
+    "/cam4/tags",
+    "/cam5/tags"]</rosparam>
     <!-- To pass through odometry messages, add them like so:
 	<rosparam param="odometry_topics"> ["/vio/odom"]</rosparam>
     -->
     <param name="bag_file" value="$(arg bag)"/>
     <param name="detector_type" value="$(arg detector_type)"/>
     <param name="tag_family" value="$(arg tag_family)"/>
-    <param name="black_border_width" value="1"/>
+    <param name="black_border_width" value="2"/>
     <param name="annotate_images" value="$(arg annotate_images)"/>
     <param name="images_are_compressed" value="$(arg images_are_compressed)"/>
     <param name="start_time" value="$(arg start_time)"/>

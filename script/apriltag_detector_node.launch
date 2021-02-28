@@ -1,5 +1,5 @@
 <launch>
-  <arg name="black_border" default="1"/>
+  <arg name="black_border" default="2"/>
 
   <node pkg="apriltag_ros" type="apriltag_detector_node"
 	name="detector" output="screen">
@@ -8,8 +8,8 @@
     <param name="type"   type="int" value="0"/>
     <param name="black_border" type="int" value="$(arg
 						 black_border)"/>
-    <param name="image_transport" value="compressed"/>
-    <remap from="~image/compressed" to="/cam0/image_raw/compressed"/>
+    <param name="image_transport" value="raw"/>
+    <remap from="~image" to="/cam0/image_raw"/>
   </node>
 
 </launch>

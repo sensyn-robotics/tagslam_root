@@ -9,10 +9,9 @@ source ${ROOTDIR}/devel/setup.bash
 ###############
 ## parameters
 
-# # example params(if you want to use your own, comment out this block, and uncomment next one)
+# # # example params(if you want to use your own, comment out this block, and uncomment next one)
+# LAUNCHDIR="`rospack find tagslam`/launch"
 # RVIZFILE=`rospack find tagslam`/example/tagslam_example.rviz
-# TAGSLAMLAUNCH="tagslam tagslam.launch"
-# APRILTAGLAUNCH="tagslam apriltag_detector_node.launch"
 # BAGFILE=`rospack find tagslam`/example/example.bag
 # TOPICS=/pg_17274483/image_raw/compressed
 # # SEPARATESTEP=true
@@ -25,14 +24,16 @@ source ${ROOTDIR}/devel/setup.bash
 # TOPICS=""
 
 # your params(you can edit)
-RVIZFILE=${ROOTDIR}/script/tagslam.rviz
-TAGSLAMLAUNCH=${ROOTDIR}/script/tagslam.launch
-APRILTAGLAUNCH=${ROOTDIR}/script/apriltag_detector_node.launch
+LAUNCHDIR=${ROOTDIR}/script
+RVIZFILE=${LAUNCHDIR}/tagslam.rviz
 BAGFILE=${ROOTDIR}/data/images.bag
 TOPICS="" # empty to play all topics
-# SEPARATESTEP=true
+SEPARATESTEP=true
 ################
 
+TAGSLAMLAUNCH=${LAUNCHDIR}/tagslam.launch
+APRILTAGLAUNCH=${LAUNCHDIR}/apriltag_detector_node.launch
+SYNCDETLAUNDH=${LAUNCHDIR}/sync_and_detect.launch
 
 # main process
 (
@@ -44,13 +45,11 @@ TOPICS="" # empty to play all topics
     if [ -z $SEPARATESTEP ] ; then # originally called as online 
     	roslaunch ${TAGSLAMLAUNCH} run_online:=true &
     	roslaunch ${APRILTAGLAUNCH} &
-	rosrun image_transport republish raw in:=/cam0/image_raw compressed out:=/cam0/image_raw &
     	rosbag play --clock $BAGFILE --topics $TOPICS
     else
-	roslaunch ${ROOTDIR}/script/sync_and_detect.launch bag:=$BAGFILE topics:=$TOPICS
-	rosparam get topics
+	roslaunch ${SYNCDETLAUNDH} bag:=$BAGFILE topics:=$TOPICS
 	TAGEXTRACTEDBAGFILE=${BAGFILE}_output.bag
-    	roslaunch tagslam tagslam.launch bag:=$TAGEXTRACTEDBAGFILE
+    	roslaunch ${TAGSLAMLAUNCH} bag:=$TAGEXTRACTEDBAGFILE
     fi
     
     wait
