@@ -44,6 +44,7 @@ TOPICS="" # empty to play all topics
     if [ -z $SEPARATESTEP ] ; then # originally called as online 
     	roslaunch ${TAGSLAMLAUNCH} run_online:=true &
     	roslaunch ${APRILTAGLAUNCH} &
+	rosrun image_transport republish raw in:=/cam0/image_raw compressed out:=/cam0/image_raw &
     	rosbag play --clock $BAGFILE --topics $TOPICS
     else
 	roslaunch ${ROOTDIR}/script/sync_and_detect.launch bag:=$BAGFILE topics:=$TOPICS

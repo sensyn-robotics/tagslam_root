@@ -8,8 +8,8 @@
     <param name="type"   type="int" value="0"/>
     <param name="black_border" type="int" value="$(arg
 						 black_border)"/>
-    <param name="image_transport" value="raw"/>
-    <remap from="~image" to="/cam0/image_raw"/>
+    <param name="image_transport" value="compressed"/>
+    <remap from="~image/compressed" to="/cam0/image_raw/compressed"/>
   </node>
 
 </launch>

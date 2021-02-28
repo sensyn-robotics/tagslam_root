@@ -10,7 +10,7 @@
   <arg name="bag" default="$(arg data_dir)/images.bag"/>
   <arg name="max_number_of_frames" default="1000000"/>
   <arg name="start_time" default="0.0"/>
-  <arg name="has_compressed_images" default="false"/>
+  <arg name="has_compressed_images" default="true"/>
 
   <node pkg="tagslam" type="tagslam_node" name="tagslam" clear_params="true"
 	output="screen">
