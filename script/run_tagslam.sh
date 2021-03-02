@@ -29,6 +29,7 @@ RVIZFILE=${LAUNCHDIR}/tagslam.rviz
 BAGFILE=${ROOTDIR}/data/images.bag
 TOPICS="" # empty to play all topics
 SEPARATESTEP=true
+RESULTDIR=${ROOTDIR}/result/20210302_slow
 ################
 
 TAGSLAMLAUNCH=${LAUNCHDIR}/tagslam.launch
@@ -54,3 +55,14 @@ SYNCDETLAUNDH=${LAUNCHDIR}/sync_and_detect.launch
     
     wait
 )
+
+# copy result
+mkdir -p ${RESULTDIR}
+cp ~/.ros/tag_corners.txt ${RESULTDIR}
+cp ~/.ros/out.bag ${RESULTDIR}
+cp ~/.ros/camera_poses.yaml ${RESULTDIR}
+cp ~/.ros/calibration.yaml ${RESULTDIR}
+cp ~/.ros/poses.yaml ${RESULTDIR}
+cp ~/.ros/error_map.txt ${RESULTDIR}
+cp ~/.ros/tag_diagnostics.txt ${RESULTDIR}
+cp ~/.ros/time_diagnostics.txt ${RESULTDIR}
