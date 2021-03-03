@@ -37,32 +37,33 @@ APRILTAGLAUNCH=${LAUNCHDIR}/apriltag_detector_node.launch
 SYNCDETLAUNDH=${LAUNCHDIR}/sync_and_detect.launch
 
 # main process
-(
-    roscore & 
-    sleep 3s
-    rosparam set use_sim_time true
-    rviz -d $RVIZFILE &
+# (
+#     roscore & 
+#     sleep 3s
+#     rosparam set use_sim_time true
+#     rviz -d $RVIZFILE &
 
-    if [ -z $SEPARATESTEP ] ; then # originally called as online 
-    	roslaunch ${TAGSLAMLAUNCH} run_online:=true &
-    	roslaunch ${APRILTAGLAUNCH} &
-    	rosbag play --clock $BAGFILE --topics $TOPICS
-    else
-	roslaunch ${SYNCDETLAUNDH} bag:=$BAGFILE topics:=$TOPICS
-	TAGEXTRACTEDBAGFILE=${BAGFILE}_output.bag
-    	roslaunch ${TAGSLAMLAUNCH} bag:=$TAGEXTRACTEDBAGFILE
-    fi
+#     if [ -z $SEPARATESTEP ] ; then # originally called as online 
+#     	roslaunch ${TAGSLAMLAUNCH} run_online:=true &
+#     	roslaunch ${APRILTAGLAUNCH} &
+#     	rosbag play --clock $BAGFILE --topics $TOPICS
+#     else
+# 	roslaunch ${SYNCDETLAUNDH} bag:=$BAGFILE topics:=$TOPICS
+# 	TAGEXTRACTEDBAGFILE=${BAGFILE}_output.bag
+#     	roslaunch ${TAGSLAMLAUNCH} bag:=$TAGEXTRACTEDBAGFILE
+#     fi
     
-    wait
-)
+#     wait
+# )
 
 # copy result
+if [ -z ${RESULTDIR} ]; then exit 0; fi
+
 mkdir -p ${RESULTDIR}
-cp ~/.ros/tag_corners.txt ${RESULTDIR}
-cp ~/.ros/out.bag ${RESULTDIR}
-cp ~/.ros/camera_poses.yaml ${RESULTDIR}
-cp ~/.ros/calibration.yaml ${RESULTDIR}
-cp ~/.ros/poses.yaml ${RESULTDIR}
-cp ~/.ros/error_map.txt ${RESULTDIR}
-cp ~/.ros/tag_diagnostics.txt ${RESULTDIR}
-cp ~/.ros/time_diagnostics.txt ${RESULTDIR}
+
+RESULTFILES="camera_poses.yaml calibration.yaml poses.yaml error_map.txt 
+tag_corners.txt tag_diagnostics.txt time_diagnostics.txt out.bag"
+for f in ${RESULTFILES}
+do
+    cp ~/.ros/$f ${RESULTDIR}
+done
